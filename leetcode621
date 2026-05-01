@@ -1,0 +1,42 @@
+class Solution {
+    public int leastInterval(char[] tasks, int n) {
+        int[] count = new int[26] ;
+        for(char task : tasks){
+            count[task - 'A'] ++ ;
+        }
+        Arrays.sort(count) ;
+        int idle = (count[25] - 1) * n ;
+        for(int i = 24 ; i >= 0 ; i--){
+            idle -= Math.min(count[i], count[25] - 1) ;
+        }
+        return tasks.length + Math.max(0,idle);
+
+        // int[] count = new int[26] ;
+        // for(char task : tasks){
+        //     count[task - 'A'] ++ ;
+        // }
+        // PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a,b) -> b - a) ;
+        // for(int c : count){
+        //     if(c > 0){
+        //         maxHeap.offer(c) ;
+        //     }
+        // }
+        // Queue<int[]> q = new LinkedList<>() ;
+        // int time = 0 ;
+        // while(!maxHeap.isEmpty() || !q.isEmpty()){
+        //     time++ ;
+        //     if(maxHeap.isEmpty()){
+        //         time = q.peek()[1] ;
+        //     } else{
+        //         int cnt = maxHeap.poll() - 1 ;
+        //         if(cnt > 0){
+        //             q.offer(new int[]{cnt, time + n}) ;
+        //         }
+        //     }
+        //     if(!q.isEmpty() && time == q.peek()[1]){
+        //         maxHeap.offer(q.poll()[0]) ;
+        //     }
+        // }
+        // return time ;
+    }
+}
